@@ -15,15 +15,15 @@ var createJadePreprocessor = function(logger, basePath) {
         var jadeOptions = {
             filename: file.originalPath,
             client: true,
-            pretty: true
+            pretty: true,
+            debug: true,
         };
-        processed = jade.compile(content, jadeOptions)
+        processed = jade.render(content, jadeOptions);
     } catch (e) {
       log.error('%s\n  at %s', e.message, file.originalPath);
     }
 
-    done("define(['jadeRuntime'], function(jade) { return " + jade.compile(content, jadeOptions) +"; });");
-};
+    done(processed);
   };
 };
 
